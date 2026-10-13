@@ -59,7 +59,8 @@ jobs:
           echo
 
       - name: curl http://localhost:5000/
-        run: curl -sS -o /dev/null -w "Dashboard HTTP status: %{http_code}\n" http://localhost:5000/
+        run: |
+          curl -sS -o /dev/null -w "Dashboard HTTP status: %{http_code}\n" http://localhost:5000/
 
       - name: docker inspect health status
         run: |
