@@ -1,5 +1,6 @@
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 addopts = "--strict-markers --cov=app --cov-report=term-missing --cov-fail-under=90"
 
 [tool.coverage.run]

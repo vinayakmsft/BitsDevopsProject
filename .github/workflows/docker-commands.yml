@@ -1,0 +1,92 @@
+name: Docker Containerization Commands
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  docker-commands:
+    name: Run Docker containerization commands
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: docker --version
+        run: |
+          docker --version
+          docker compose version
+
+      - name: docker build -t aceest-fitness:latest .
+        run: docker build -t aceest-fitness:latest .
+
+      - name: docker images aceest-fitness
+        run: docker images aceest-fitness
+
+      - name: docker run --rm aceest-fitness:latest pytest -v
+        run: docker run --rm aceest-fitness:latest pytest -v
+
+      - name: docker run --rm aceest-fitness:latest ruff check .
+        run: docker run --rm aceest-fitness:latest ruff check .
+
+      - name: docker run --rm aceest-fitness:latest python -m compileall -q app.py
+        run: |
+          docker run --rm aceest-fitness:latest python -m compileall -q app.py
+          echo "compileall exit code: $?"
+
+      - name: docker run -d -p 5000:5000 --name aceest aceest-fitness:latest
+        run: |
+          docker run -d -p 5000:5000 --name aceest aceest-fitness:latest
+          for attempt in $(seq 1 20); do
+            curl -fsS http://localhost:5000/health > /dev/null && break
+            sleep 1
+          done
+
+      - name: docker ps
+        run: docker ps
+
+      - name: docker logs aceest
+        run: docker logs aceest
+
+      - name: curl http://localhost:5000/health
+        run: |
+          curl -sS -i http://localhost:5000/health
+          echo
+
+      - name: curl http://localhost:5000/
+        run: curl -sS -o /dev/null -w "Dashboard HTTP status: %{http_code}\n" http://localhost:5000/
+
+      - name: docker inspect health status
+        run: |
+          sleep 6
+          docker inspect --format "Container health: {{.State.Health.Status}}  User: {{.Config.User}}" aceest
+
+      - name: docker stop / rm / rmi
+        if: always()
+        run: |
+          docker stop aceest || true
+          docker rm aceest || true
+          docker rmi aceest-fitness:latest || true
+
+      - name: docker compose up --build -d
+        run: |
+          docker compose up --build -d
+          for attempt in $(seq 1 20); do
+            curl -fsS http://localhost:5000/health > /dev/null && break
+            sleep 1
+          done
+
+      - name: docker compose ps
+        run: docker compose ps
+
+      - name: docker compose logs web
+        run: docker compose logs web
+
+      - name: docker compose down
+        if: always()
+        run: docker compose down
