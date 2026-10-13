@@ -5,6 +5,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     PIP_NO_CACHE_DIR=1 \
     COVERAGE_FILE=/tmp/.coverage \
     PYTEST_ADDOPTS="-p no:cacheprovider" \
+    RUFF_CACHE_DIR=/tmp/.ruff_cache \
     PORT=5000
 
 WORKDIR /app
