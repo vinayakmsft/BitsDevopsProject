@@ -3,6 +3,8 @@ FROM python:3.13-slim
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
+    COVERAGE_FILE=/tmp/.coverage \
+    PYTEST_ADDOPTS="-p no:cacheprovider" \
     PORT=5000
 
 WORKDIR /app
