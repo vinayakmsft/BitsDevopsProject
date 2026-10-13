@@ -5,12 +5,6 @@ managing gym members and recording workout activity. The project demonstrates
 application modularization, automated testing, containerization, Jenkins builds,
 and continuous integration with GitHub Actions.
 
-## Project status
-
-[![ACEest CI](https://github.com/OWNER/REPOSITORY/actions/workflows/main.yml/badge.svg)](https://github.com/OWNER/REPOSITORY/actions/workflows/main.yml)
-
-> Replace `OWNER/REPOSITORY` in the badge after publishing this project to
-> GitHub.
 
 ## Features
 
