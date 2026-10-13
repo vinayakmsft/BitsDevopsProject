@@ -3,10 +3,6 @@ FROM python:3.13-slim
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
-    COVERAGE_FILE=/tmp/.coverage \
-    PYTEST_ADDOPTS="-p no:cacheprovider" \
-    RUFF_CACHE_DIR=/tmp/.ruff_cache \
-    PYTHONPYCACHEPREFIX=/tmp/pycache \
     PORT=5000
 
 WORKDIR /app
@@ -25,6 +21,12 @@ COPY --chown=aceest:aceest pyproject.toml ./
 RUN mkdir -p /app/instance && chown aceest:aceest /app/instance
 
 USER aceest
+
+# /app stays read-only for the runtime user, so tool caches live in /tmp.
+ENV COVERAGE_FILE=/tmp/.coverage \
+    PYTEST_ADDOPTS="-p no:cacheprovider" \
+    RUFF_CACHE_DIR=/tmp/.ruff_cache \
+    PYTHONPYCACHEPREFIX=/tmp/pycache
 
 EXPOSE 5000
 
