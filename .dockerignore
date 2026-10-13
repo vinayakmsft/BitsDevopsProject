@@ -1,0 +1,14 @@
+.git
+.github
+.idea
+.pytest_cache
+.ruff_cache
+.venv
+__pycache__
+*.py[cod]
+*.sqlite
+.coverage
+htmlcov
+assignment.txt
+README.md
+Jenkinsfile

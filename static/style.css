@@ -1,0 +1,169 @@
+:root {
+  --ink: #17251d;
+  --paper: #f4f2e9;
+  --lime: #c9fb5a;
+  --muted: #69766e;
+  --line: #d8ddd5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.hero {
+  min-height: 520px;
+  padding: 28px max(6vw, 24px) 80px;
+  color: white;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(201, 251, 90, .2), transparent 28%),
+    linear-gradient(135deg, #122018, #25402f);
+}
+
+nav, main, footer {
+  width: min(1160px, 100%);
+  margin-inline: auto;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  color: white;
+  font-size: 1.7rem;
+  font-weight: 900;
+  letter-spacing: -.08em;
+  text-decoration: none;
+}
+
+.brand span, em { color: var(--lime); font-style: normal; }
+
+.status {
+  color: #dce7df;
+  font-size: .85rem;
+  text-decoration: none;
+}
+
+.status span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--lime);
+  box-shadow: 0 0 14px var(--lime);
+}
+
+.hero-copy { margin-top: 105px; }
+.eyebrow {
+  margin: 0 0 12px;
+  color: #7d8b82;
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.hero .eyebrow { color: var(--lime); }
+
+h1 {
+  max-width: 820px;
+  margin: 0;
+  font-size: clamp(3rem, 8vw, 6.4rem);
+  line-height: .94;
+  letter-spacing: -.07em;
+}
+
+.hero-copy > p:last-child {
+  max-width: 500px;
+  margin-top: 28px;
+  color: #c7d1ca;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+main { padding: 0 max(4vw, 20px) 60px; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: -44px;
+  background: white;
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 40px rgba(31, 53, 40, .08);
+}
+
+.stats article { padding: 28px; border-right: 1px solid var(--line); }
+.stats article:last-child { border: 0; }
+.stats strong { display: block; font-size: 2.2rem; letter-spacing: -.06em; }
+.stats span { color: var(--muted); font-size: .8rem; }
+
+.panel { padding: 80px 0; }
+h2 { margin: 0; font-size: 2.25rem; letter-spacing: -.05em; }
+
+.table-wrap { margin-top: 28px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 18px 12px; text-align: left; border-bottom: 1px solid var(--line); }
+th { color: var(--muted); font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; }
+.tag { padding: 7px 10px; border-radius: 20px; background: #e4eacb; font-size: .78rem; font-weight: 700; }
+
+.empty {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 28px;
+  padding: 35px;
+  border: 1px dashed #aeb8b0;
+}
+.empty span { color: #a8b2aa; font-size: 2rem; font-weight: 900; }
+.empty p { margin: 0; color: var(--muted); }
+
+.api-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: clamp(30px, 6vw, 65px);
+  background: var(--lime);
+}
+.api-card > div { max-width: 550px; }
+.api-card p:last-child { line-height: 1.6; }
+.api-card code {
+  min-width: 280px;
+  padding: 24px;
+  color: #dff0e4;
+  background: var(--ink);
+  font-size: .85rem;
+  line-height: 2;
+}
+
+footer { padding: 30px 20px; color: var(--muted); font-size: .8rem; }
+footer span { color: #a8b2aa; }
+
+.error-page { display: grid; min-height: 100vh; place-items: center; }
+.error-page main { text-align: center; }
+.error-page h1 { font-size: clamp(3rem, 8vw, 6rem); }
+.error-page p { color: var(--muted); }
+.button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 14px 20px;
+  color: white;
+  background: var(--ink);
+  text-decoration: none;
+}
+
+@media (max-width: 720px) {
+  .hero { min-height: 470px; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .stats article:nth-child(2) { border-right: 0; }
+  .stats article:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .api-card { align-items: stretch; flex-direction: column; }
+  .api-card code { min-width: 0; }
+}

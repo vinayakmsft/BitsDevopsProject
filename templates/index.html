@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="ACEest Fitness & Gym activity dashboard">
+    <title>ACEest Fitness & Gym</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <header class="hero">
+      <nav>
+        <a class="brand" href="/">ACE<span>est</span></a>
+        <a class="status" href="/health"><span></span> Service healthy</a>
+      </nav>
+      <div class="hero-copy">
+        <p class="eyebrow">Train. Track. Transform.</p>
+        <h1>Fitness progress,<br><em>made measurable.</em></h1>
+        <p>One reliable home for gym memberships and workout performance.</p>
+      </div>
+    </header>
+
+    <main>
+      <section class="stats" aria-label="Gym statistics">
+        <article><strong>{{ stats.members }}</strong><span>Active members</span></article>
+        <article><strong>{{ stats.workouts }}</strong><span>Workouts logged</span></article>
+        <article><strong>{{ stats.minutes }}</strong><span>Training minutes</span></article>
+        <article><strong>{{ stats.calories }}</strong><span>Calories burned</span></article>
+      </section>
+
+      <section class="panel">
+        <div>
+          <p class="eyebrow">Latest activity</p>
+          <h2>Recent workouts</h2>
+        </div>
+        {% if recent_workouts %}
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr><th>Member</th><th>Training</th><th>Duration</th><th>Energy</th><th>Date</th></tr>
+              </thead>
+              <tbody>
+                {% for workout in recent_workouts %}
+                  <tr>
+                    <td>{{ workout.member_name }}</td>
+                    <td><span class="tag">{{ workout.workout_type }}</span></td>
+                    <td>{{ workout.duration_minutes }} min</td>
+                    <td>{{ workout.calories_burned }} kcal</td>
+                    <td>{{ workout.completed_on }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div class="empty">
+            <span>01</span>
+            <p>No workouts yet. Add a member and log the first session through the API.</p>
+          </div>
+        {% endif %}
+      </section>
+
+      <section class="api-card">
+        <div>
+          <p class="eyebrow">Developer ready</p>
+          <h2>Built for automation</h2>
+          <p>Manage members and workouts with a clean JSON API, tested on every change.</p>
+        </div>
+        <code>GET /api/members<br>POST /api/workouts<br>GET /health</code>
+      </section>
+    </main>
+
+    <footer>ACEest Fitness & Gym <span>·</span> Powered by Flask</footer>
+  </body>
+</html>
